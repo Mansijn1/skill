@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillSwap - Share Your Skills, Learn Together</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<nav class="navbar fixed top-0 w-full z-50 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                    </path>
+                </svg>
+            </div>
+            <span class="text-2xl font-bold text-white">SkillSwap</span>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-8">
+            <a th:href="@{/}" class="text-white hover:text-purple-200">Home</a>
+            <a href="javascript:void(0)" id="aboutLink" class="text-white hover:text-purple-200">About Us</a>
+            <a href="#explore" class="text-white hover:text-purple-200">Explore</a>
+            <a href="#contact" class="text-white hover:text-purple-200">Contact</a>
+        </div>
+
+        <!-- Search + Auth -->
+        <div class="hidden lg:flex items-center space-x-4">
+            <div class="search-bar rounded-full px-4 py-2">
+                <input type="text" placeholder="Search skills..."
+                       class="bg-transparent text-white placeholder-white/70 outline-none w-48">
+                <button class="text-white hover:text-purple-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a th:href="@{/login}" class="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold hover:bg-purple-50">Login</a>
+                <a th:href="@{/signup}" class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700">Sign Up</a>
+            </div>
+        </div>
+
+        <button class="md:hidden text-white" id="mobileMenuBtn">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<main class="flex-grow pt-20 px-4">
+    <div class="max-w-7xl mx-auto py-12">
+        <!-- Hero Slider -->
+        <div class="hero-slider mb-12">
+            <div class="slide active"
+                 style="background-image:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG395MNh3DDwQXczNSIimUTjPnMIhomCWLoI5Mo5VX4uREPWA4vyo0VRBoLuHxabLep1I&usqp=CAU');">
+                <div class="slide-content">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to SkillSwap</h1>
+                    <p class="text-gray-600 mb-6">Connect with amazing people and exchange valuable skills in our community</p>
+                    <a th:href="@{/signup}" class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700">Get Started</a>
+                </div>
+            </div>
+            <div class="slide"
+                 style="background-image:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('/images/heroslide2.jpg');">
+                <div class="slide-content">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-4">Learn & Teach</h1>
+                    <p class="text-gray-600 mb-6">Share your expertise and learn new skills from others in your community</p>
+                    <a th:href="@{/signup}" class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700">Join Now</a>
+                </div>
+            </div>
+            <div class="slide"
+                 style="background-image:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('/images/heroslide3.jpg');">
+                <div class="slide-content">
+                    <h1 class="text-4xl font-bold text-gray-800 mb-4">Build Connections</h1>
+                    <p class="text-gray-600 mb-6">Meet like-minded individuals and build meaningful relationships through skill sharing</p>
+                    <a th:href="@{/login}" class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700">Explore Skills</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Skills -->
+        <div class="mb-16" id="explore">
+            <h2 class="text-3xl font-bold text-white text-center mb-12">Popular Skills to Exchange</h2>
+            <!-- skill cards code stays same -->
+        </div>
+    </div>
+</main>
+
+
+    <!-- Footer -->
+    <footer class="footer text-white py-12 bg-gray-900" id="contact">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+                <!-- Logo & Description -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">SkillSwap</h3>
+                    <p class="text-gray-300 mb-4">
+                        Connecting people through skill exchange and community learning.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-300 hover:text-white">Home</a></li>
+                        <!-- About Us opens modal -->
+                        <li><a href="javascript:void(0)" id="aboutLinkFooter" class="text-gray-300 hover:text-white">About Us</a></li>
+                        <li><a href="#explore" class="text-gray-300 hover:text-white">Explore Skills</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Stay Updated</h3>
+                    <p class="text-gray-300 mb-4">Subscribe to our newsletter for updates</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email" class="bg-gray-800 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <button class="bg-purple-600 px-4 py-2 rounded-r-lg hover:bg-purple-700">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">© 2025 SkillSwap. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+<!-- About Us Modal -->
+<div id="aboutModal" class="fixed inset-0 hidden bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative">
+        <button id="closeAbout" class="absolute top-3 right-3 text-gray-600 hover:text-red-500">✕</button>
+        <h2 class="text-2xl font-bold text-purple-600 mb-4">About SkillSwap</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+            SkillSwap is a platform where people connect to share and learn skills together.
+        </p>
+        <p class="text-gray-700 leading-relaxed">
+            Our goal is to build a community-driven learning space where teaching and learning go hand in hand.
+        </p>
+    </div>
+</div>
+
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
